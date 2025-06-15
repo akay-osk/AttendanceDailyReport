@@ -15,5 +15,33 @@ CREATE TABLE Users(
 	--状態チェックコメントなど
 	status_message TEXT,
 	--アカウント作成日時
-	created_at TIMESTAMP DEFAULT now()
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+DROP TABLE IF EXISTS Attendance;
+--勤怠テーブル
+CREATE TABLE Attendance(
+	--勤怠ID
+	id serial PRIMARY KEY,
+	--ユーザーID : FK
+	user_id integer NOT NULL REFERENCES Users(id),
+	--出勤時間
+	clock_in TIMESTAMP NOT NULL,
+	--退勤時間
+	clock_out TIMESTAMP,
+	--勤務日
+	work_date DATE NOT NULL
+)
+
+DROP TABLE IF EXISTS DailyReports;
+--日報テーブル
+CREATE TABLE DailyReports(
+	--日報id
+	id serial PRIMARY KEY,
+	--ユーザーid : FK
+	user_id integer NOT NULL REFERENCES Users(id),
+	--日付
+	report_date DATE NOT NULL,
+	--本文
+	content TEXT
 )
