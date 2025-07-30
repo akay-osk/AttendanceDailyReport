@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Create_DailyReport</title>
 </head>
 <body>
-
+	<h2>日報作成フォーム</h2>
+	<form th:action="@{/report/submit}" th:object="${report}" method="post">
+		<label>日付: </label>
+		<input type="date" th:field="*{reportDate}" required/><br/>
+		
+		<label>タイトル: </label>
+		<input type="text" th:field="*{title}" required/><br/>
+		
+		<label>報告事項: </label><br/>
+		<textarea th:field="*{content}" rows="5" cols="40" required></textarea><br/>
+		
+		<label>印象に残ったこと</label><br/>
+		<textarea th:field="*{impression}" rows="5" cols="40"></textarea><br/>
+		
+		<button type="submit">日報を提出する</button>
+	</form>
+	<a th:href="@{/home}">ホームに戻る</a>
 </body>
 </html>

@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="Attendance")
+@Table(name="Attendances")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Attendance {
@@ -25,15 +26,16 @@ public class Attendance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")	//外部キー
 	private User user;
 	
-	private LocalDate workDate;
-	
+	// 勤怠の開始時刻（出勤時間）
+	@Column(name = "clock_in")
 	private LocalDateTime clockIn;
 	
+	// 勤怠の終了時刻（退勤時間）
+	@Column(name = "clock_out")
 	private LocalDateTime clockOut;
-	
 
 }

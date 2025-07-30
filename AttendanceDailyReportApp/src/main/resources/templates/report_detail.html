@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ReportDetails</title>
+</head>
+<body>
+	<h1 th:text="|『 ${report.title} 』|"></h1>
+	<p><strong>日付: </strong><span th:text="${report.reportDate}"></span></p>
+	<p><strong>報告事項: </strong></p>
+	<p th:text="${report.content}"></p>
+	<p><strong>印象に残ったこと: </strong></p>
+	<p th:text="${report.impression}"></p>
+	
+	<a th:href="@{'/reports/' + ${report.id} + '/edit'}">
+	  <button type="button">編集</button>
+	</a>
+	
+	<form th:action="@{'/reports/' + ${report.id} + '/delete'}" method="post">
+		<button type="submit">削除</button>
+	</form>
+
+	<a href="/reports">一覧に戻る</a>
+	
+</body>
+</html>

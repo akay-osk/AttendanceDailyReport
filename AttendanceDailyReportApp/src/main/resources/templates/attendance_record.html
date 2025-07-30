@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Attendance_Record</title>
+</head>
+<body>
+	<h2>勤怠記録一覧</h2>
+	<table border="1">
+		<tr>
+			<th>年月日</th>
+			<th>出勤時間</th>
+			<th>退勤時間</th>
+		</tr>
+		<tr th:each="attendance : ${attendances}">
+			<td th:text="${#temporals.format(attendance.clockIn, 'yyyy年MM月dd日')}"></td>
+			<td th:text="${#temporals.format(attendance.clockIn, 'HH:mm')}"></td>
+			<td th:text="${attendance.clockOut != null ? #temporals.format(attendance.clockOut, 'HH:mm') : '未退勤'}"></td>
+		</tr>
+	</table>
+	
+	<br>
+	<form th:action="@{/home}" method="get">
+		<button type="submit">ホームに戻る</button>
+	</form>
+
+</body>
+</html>

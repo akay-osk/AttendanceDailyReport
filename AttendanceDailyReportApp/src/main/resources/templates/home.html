@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home_ClockInOut</title>
+<script>
+	function updateClock() {
+		const now = new Date();
+		const time = now.toLocaleTimeString();
+		document.getElementById("clock").textContent = time;
+	}
+	setInterval(updateClock, 1000);
+</script>
 </head>
 <body>
-
+	<h3 th:text="${name}+'さん（User ID: '+${loginId}+'）'"></h3>
+	<h1>こんにちは！</h1>
+	<h2>お仕事の記録はこちらです ▷▶ ︎</h2>
+	
+	<!--時計表示-->
+	<div id="clock" style="font-size: 2em; color: navy;"></div>
+	
+	<!--出勤ボタン-->
+	<form method="post" th:action="@{/clockin}">
+		<button type="submit">出勤</button>
+	</form>
+	
+	<!--退勤ボタン-->
+	<form method="post" th:action="@{/clockout}">
+		<button type="submit">退勤</button>
+	</form>
+	
+	<p th:if="${message}" th:text="${message}"></p>
+	
+	<!--勤怠記録一覧を表示する画面へ遷移-->
+	<form th:action="@{/attendanceRecord}" method="get">
+		<button type="submit">勤怠記録一覧</button>
+	</form>
+	
+	<!--日報作成画面へ遷移-->
+	<a th:href="@{/report/new}">
+		<button>日報作成</button>
+	</a>
+	<br>
+	
+	<!--日報一覧表示画面へ遷移-->
+	<a th:href="@{/reports}">
+		<button>日報一覧</button>
+	</a>
+	
+	<!--ログアウト処理-->
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">LOGOUT</button>
+	</form>
+	
 </body>
 </html>

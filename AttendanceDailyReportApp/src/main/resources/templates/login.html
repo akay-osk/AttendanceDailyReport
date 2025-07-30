@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>login</title>
 </head>
 <body>
+	<h1>ようこそ！勤怠管理＆日報ツールへ</h1>
+	<h2>▷▶ ︎Login</h2>
+	<form th:action="@{/login}" method="post">
+		<label>Login ID: <input type="text" name="username"/></label><br/>
+		<label>Password: <input type="password" name="password"/></label><br/>
+		<button type="submit">LOGIN</button>
+	</form>
+	
+	<!--エラーメッセージ-->
+	<div th:if="${param.error}">
+		<p style="color:red;">ログインIDまたはパスワードが間違っています。</p>
+	</div>
+	<div th:if="${param.logout}">
+		<p style="color:green;">ログアウトしました。</p>
+	</div>
 
 </body>
 </html>

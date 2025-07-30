@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.User;
 
-//UserDetails : Spring Security がユーザー情報を扱うための標準インターフェース
-//CustomUserDetails : 自作の User エンティティを UserDetails に適合させるラッパー
 public class CustomUserDetails implements UserDetails {
 	
 	private final User user;
@@ -18,40 +16,44 @@ public class CustomUserDetails implements UserDetails {
 	public CustomUserDetails(User user) {
 		this.user= user;
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("ROLE_"+user.getRole()));		//ここ修正必要かもしれない
+	
+	public User getUser() {
+		return user;
 	}
-
+	
+	//ログイン情報
 	@Override
 	public String getPassword() {
-		return user.getPassword();		//DBのpassword(ハッシュ化済)
+		return user.getPassword();
 	}
-
-	@Override
+	
+	//ログイン情報
+	public String getLoginId() {
+		return user.getLoginId();
+	}
+	
+	//ユーザーの名前、アプリ内の表示に使うかも
 	public String getUsername() {
-		return user.getUsername();		//DBのusername
+		return user.getName();
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
 	}
 	
 	@Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+	}
 
 }

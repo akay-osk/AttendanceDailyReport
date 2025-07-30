@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ReportList</title>
+</head>
+<body>
+	<h1>日報一覧</h1>
+	<table>
+		<tr>
+			<th>日付</th>
+			<th>タイトル</th>
+			<th>最終更新日</th>
+		</tr>
+		<tr th:each="report : ${reports}">
+			<td th:text="${report.reportDate}"></td>
+			<td><a th:href="@{/reports/{id}(id=${report.id})}" th:text="${report.title}"></a></td>
+			<td th:text="${#temporals.format(report.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
+		</tr>
+	</table>
+	<a href="/home">ホームに戻る</a>
+
+</body>
+</html>

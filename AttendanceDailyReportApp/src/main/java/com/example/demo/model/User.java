@@ -24,15 +24,15 @@ public class User {
 	private int id;
 	
 	@Column(nullable = false, unique = true)
-	private String username;
+	private String loginId;
+	
+	@Column(nullable = false)
+	private String name;
 	
 	@Column(nullable = false)
 	private String password;
 	
-	@Column(nullable = false)
 	private String role;
-	
-	private String displayName;
 	
 	private String statusMessage;
 	

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>EditReport</title>
+</head>
+<body>
+	<h1>日報編集</h1>
+	<form th:action="@{'/reports/' + ${report.id} + '/edit'}" th:object="${report}" method="post">
+		<p th:text="|日付: *{reportDate}|"></p>
+		<label>タイトル: </label>
+		<input type="text" th:field="*{title}" />
+		<br/>
+		<label>報告事項: </label>
+		<textarea th:field="*{content}"></textarea>
+		<br/>
+		<label>印象に残ったこと: </label>
+		<textarea th:field="*{impression}"></textarea>
+		<br/>
+		<button type="submit">更新</button>
+	</form>
+	<a th:href="@{'/reports/' + ${report.id}}">戻る</a>
+</body>
+</html>
